@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2024 Joe Pitt
+#
+# SPDX-License-Identifier: GPL-3.0-only
+
+dnspython==2.4.2
+pan-os-python==1.11.0
