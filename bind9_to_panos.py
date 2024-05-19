@@ -11,7 +11,7 @@ from ipaddress import ip_address
 from os.path import isfile
 from re import compile as re_compile, IGNORECASE
 from sys import exit as sys_exit
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from dns.rdataclass import INTERNET
 from dns.rdatatype import A as a_id, AAAA as aaaa_id
@@ -245,7 +245,7 @@ def new_panos_group(
     description: Optional[str] = None,
     v4_addresses: Optional[List[str]] = None,
     v6_addresses: Optional[List[str]] = None,
-) -> tuple[AddressGroup, List[AddressObject]]:
+) -> Tuple[AddressGroup, List[AddressObject]]:
     """Generate the PanOS objects for the given host.
 
     Args:
@@ -261,7 +261,7 @@ def new_panos_group(
         ValueError: If object generation fails.
 
     Returns:
-        tuple[AddressGroup, List[AddressObject]]: An address group and list of address objects for
+        Tuple[AddressGroup, List[AddressObject]]: An address group and list of address objects for
             the host.
     """
 
