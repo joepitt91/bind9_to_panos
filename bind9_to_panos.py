@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Load bind9 zone files into a PanOS firewall as address and address group objects"""
+"""Load bind9 zone files into a PAN-OS firewall as address and address group objects"""
 
 # SPDX-FileCopyrightText: 2024 Joe Pitt
 #
@@ -34,7 +34,7 @@ __version__ = "1.0.0"
 
 
 def host_description(comment: Optional[str] = None) -> str:
-    """Parse the PanOS description out of a bind9 comment
+    """Parse the PAN-OS description out of a bind9 comment
 
     Args:
         comment (str, optional): The comment associated with the record. Defaults to None.
@@ -51,11 +51,11 @@ def host_description(comment: Optional[str] = None) -> str:
         result: str = rex.search(comment)[0]
         return result.replace("panos_desc=", "").replace('"', "")
     except (KeyError, TypeError) as ex:
-        raise ValueError("No PanOS description found") from ex
+        raise ValueError("No PAN-OS description found") from ex
 
 
 def host_tag(comment: Optional[str] = None) -> str:
-    """Parse the PanOS tag out of a bind9 comment
+    """Parse the PAN-OS tag out of a bind9 comment
 
     Args:
         comment (str, optional): The comment associated with the record. Defaults to None.
@@ -72,7 +72,7 @@ def host_tag(comment: Optional[str] = None) -> str:
         result: str = rex.search(comment)[0]
         return result.replace("panos_tag=", "").replace('"', "")
     except (KeyError, TypeError) as ex:
-        raise ValueError("No PanOS tag found") from ex
+        raise ValueError("No PAN-OS tag found") from ex
 
 
 def is_fqdn(hostname: str) -> bool:
@@ -113,7 +113,7 @@ def new_panos_fqdn(
     tag: str,
     description: Optional[str] = None,
 ) -> AddressObject:
-    """Generate a Fully Qualified Domain Name (FQDN) PanOS address object.
+    """Generate a Fully Qualified Domain Name (FQDN) PAN-OS address object.
 
     Args:
         hostname (str): The host the object is for.
@@ -124,7 +124,7 @@ def new_panos_fqdn(
         ValueError: If the data provided is invalid.
 
     Returns:
-        AddressObject: The generated PanOS address object.
+        AddressObject: The generated PAN-OS address object.
     """
 
     if not is_fqdn(hostname):
@@ -146,7 +146,7 @@ def new_panos_ipv4_address(
     description: Optional[str] = None,
     sequence_id: int = 1,
 ) -> AddressObject:
-    """Generate an IPv4 PanOS address object.
+    """Generate an IPv4 PAN-OS address object.
 
     Args:
         hostname (str): The host the object is for.
@@ -160,7 +160,7 @@ def new_panos_ipv4_address(
         ValueError: If the data provided is invalid.
 
     Returns:
-        AddressObject: The generated PanOS address object.
+        AddressObject: The generated PAN-OS address object.
     """
 
     if not is_fqdn(hostname):
@@ -196,7 +196,7 @@ def new_panos_ipv6_address(
     description: Optional[str] = None,
     sequence_id: int = 1,
 ) -> AddressObject:
-    """Generate an IPv6 PanOS address object.
+    """Generate an IPv6 PAN-OS address object.
 
     Args:
         hostname (str): The host the object is for.
@@ -210,7 +210,7 @@ def new_panos_ipv6_address(
         ValueError: If the data provided is invalid.
 
     Returns:
-        AddressObject: The generated PanOS address object.
+        AddressObject: The generated PAN-OS address object.
     """
 
     if not is_fqdn(hostname):
@@ -246,7 +246,7 @@ def new_panos_group(
     v4_addresses: Optional[List[str]] = None,
     v6_addresses: Optional[List[str]] = None,
 ) -> Tuple[AddressGroup, List[AddressObject]]:
-    """Generate the PanOS objects for the given host.
+    """Generate the PAN-OS objects for the given host.
 
     Args:
         hostname (str): The host the objects will be for.
@@ -321,7 +321,7 @@ firewall = Firewall(
 
 firewall.refresh_system_info()
 log.info(
-    "Connected to %s a %s (Serial: %s) running PanOS v%s",
+    "Connected to %s a %s (Serial: %s) running PAN-OS v%s",
     firewall.hostname,
     firewall.platform,
     firewall.serial,
@@ -418,7 +418,7 @@ for zone_name in config.sections():
 
                     ipv6_addresses.append(aaaa_record.address)
 
-            log.debug("[%s] Generating PanOS objects for %s", zone_name, record)
+            log.debug("[%s] Generating PAN-OS objects for %s", zone_name, record)
             try:
                 address_group, address_objects = new_panos_group(
                     record,
@@ -429,7 +429,7 @@ for zone_name in config.sections():
                 )
             except ValueError as e:
                 log.error(
-                    "[%s] Failed to generate PanOS objects for %s: %s",
+                    "[%s] Failed to generate PAN-OS objects for %s: %s",
                     zone_name,
                     record,
                     e,
