@@ -27,7 +27,7 @@ manually.
 
 ## Requirements
 
-* Python 3.8 to 3.12 on Linux, macOS, or Windows,
+* Python 3.9 to 3.12 on Linux, macOS, or Windows,
 * PIP Module `dnspython`, and
 * PIP Module `pan-os-python`.
 
