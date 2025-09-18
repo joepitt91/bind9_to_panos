@@ -2,5 +2,5 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
-dnspython==2.6.1
+dnspython==2.7.0
 pan-os-python==1.12.2
